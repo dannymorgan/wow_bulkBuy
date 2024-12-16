@@ -5,7 +5,7 @@ local frame = CreateFrame("Frame")
 local function ShowBulkBuyDialog(itemName, price, stackSize, numAvailable, index)
   if not BulkBuy.dialog then
     BulkBuy.dialog = CreateFrame("Frame", "BulkBuyDialog", UIParent, "BasicFrameTemplateWithInset")
-    BulkBuy.dialog:SetSize(300, 120)
+    BulkBuy.dialog:SetSize(300, 160)
     BulkBuy.dialog:SetPoint("CENTER")
     BulkBuy.dialog:Hide()
 
@@ -20,9 +20,21 @@ local function ShowBulkBuyDialog(itemName, price, stackSize, numAvailable, index
     -- Qty input
     BulkBuy.dialog.editBox = CreateFrame("EditBox", nil, BulkBuy.dialog, "InputBoxTemplate")
     BulkBuy.dialog.editBox:SetSize(120, 30)
-    BulkBuy.dialog.editBox:SetPoint("CENTER")
+    BulkBuy.dialog.editBox:SetPoint("TOP", BulkBuy.dialog.text, "BOTTOM", 0, -5)
     BulkBuy.dialog.editBox:SetAutoFocus(true)
     BulkBuy.dialog.editBox:SetNumeric(true)
+
+    -- Cost display
+    BulkBuy.dialog.costText = BulkBuy.dialog:CreateFontString(nil, "OVERLAY", "GameFontNormal")
+    BulkBuy.dialog.costText:SetPoint("TOP", BulkBuy.dialog.editBox, "BOTTOM", 0, -8)
+    BulkBuy.dialog.costText:SetText("Cost: 0 gold")
+
+    -- Update cost when the quantity changes
+    BulkBuy.dialog.editBox:SetScript("OnTextChanged", function(self)
+      local quantity = tonumber(self:GetText()) or 0
+      local totalCost = quantity * price
+      BulkBuy.dialog.costText:SetText("Cost: " .. GetCoinTextureString(totalCost)) -- Formats the cost with WoW coin icons
+    end)
 
     -- Buy button
     BulkBuy.dialog.confirmButton = CreateFrame("Button", nil, BulkBuy.dialog, "UIPanelButtonTemplate")
