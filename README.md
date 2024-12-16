@@ -3,6 +3,8 @@
 ## Overview
 **BulkBuy** is a World of Warcraft addon I made so i could buy more than 20 coarse thread at a time. It allows players to input a desired quantity of an item to buy, displays the total cost dynamically, and ensures the transaction processes smoothly with delays to prevent errors.
 
+![BulkBuy Dialog Example](screenshot.png)
+
 ---
 
 ## Features
