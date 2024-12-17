@@ -3,4 +3,5 @@
 ## Notes: Enhances vendor purchases with bulk-buy functionality.
 ## Author: Reefnixon
 ## Version: 0.1
+
 BulkBuy.lua
